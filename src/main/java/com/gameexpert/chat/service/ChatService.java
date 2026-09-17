@@ -45,7 +45,7 @@ public class ChatService {
             throw new NotFoundException("WORLD_NOT_FOUND");
         }
 
-        int capped = Math.min(Math.max(limit, 1), MAX_LIMIT);
+        int capped = Math.clamp(limit, 1, MAX_LIMIT);
 
         List<ChatMessage> recent = chatMessageRepository
                 .findByWorldIdOrderByCreatedAtDescIdDesc(worldId, PageRequest.of(0, capped));
