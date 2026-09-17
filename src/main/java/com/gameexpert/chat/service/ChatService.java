@@ -50,8 +50,10 @@ public class ChatService {
         List<ChatMessage> recent = chatMessageRepository
                 .findByWorldIdOrderByCreatedAtDescIdDesc(worldId, PageRequest.of(0, capped));
 
+
         // TODO Lv 5: recent를 오래된 순서로 바꾸고 응답 DTO 목록으로 반환합니다.
-        return List.of();
+
+        return recent.reversed().stream().map(message -> savedResponse(worldId, message)).toList();
     }
 
     private ChatMessageResponse savedResponse(Long worldId, ChatMessage saved) {
